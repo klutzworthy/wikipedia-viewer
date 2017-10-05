@@ -1,0 +1,146 @@
+<html>
+
+<style>
+body {
+  color: White;
+  font-family: Helvetica;
+  background:url('https://s26.postimg.org/ept3hcxuh/tumblr_oj6058_Qx_Jn1qbgdnxo1_500.png');
+  -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
+}
+
+h1 {
+  font-size: 60px;
+  text-align: center;
+  font-weight: bold;
+  text-shadow: 1px 1px 0px #ededed, 4px 4px 0px rgba(0,0,0,0.15);
+}
+
+.small-font {
+  font-size: 30px;
+}
+
+button {
+  background-color: darkCyan;
+  border-radius: 50px;
+	font-size: 12px;
+	font-style: normal;
+	font-variant: normal;
+	font-weight: 500;
+	line-height: 26.4px;
+  height: auto;
+  width: auto;
+  font-weight: bold;
+}
+
+ .smaller-image {
+    width: 400px;
+  }
+
+div {
+  text-align: center;
+}
+
+h4 {
+    border: 5px solid Black;
+    border-radius: 10px;
+    padding: 25px;
+    margin: 25px;
+    height: auto;
+    width: 400px;
+    text-align: center;
+    background-color: FloralWhite;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h4 {
+  color: black;
+}
+
+.wiki {
+  cursor: pointer;
+}
+
+.hide {
+  opacity: 0;
+}
+</style>
+
+<head>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+<br>
+<br>
+<br>
+<div>
+<h1>Collect All The Knowledge:</h1>
+</div>
+
+<div>
+<h2>Wikipedia Article Search.</h2>
+</div>
+
+<div>
+ <input id="term" type="text" placeholder="What are you looking for?" style="width: 250px; height: 20px">
+ <button><a class="thin-black-border" href="https://en.wikipedia.org/wiki/Special:Random" target="_blank">Click For Random Article.</a></button>
+</div>
+<br>
+<div><center>
+<h4 id="wiki1"class="wiki hide">Once you type in your search term and hit "enter," the details from wikipedia will surface here. </h4>
+<h4 id="wiki2" class="wiki hide">The 2nd search option for your term on wikipedia will surface here.</h4>
+<h4 id="wiki3" class="wiki hide">The 3rd search option for your term on wikipedia will surface here.</h4>
+<h4 id="wiki4" class="wiki hide">The 4th search option for your term on wikipedia will surface here.</h4>
+<h4 id="wiki5" class="wiki hide">The 5th search option for your term on wikipedia will surface here.</h4>
+  </center><div>
+
+<script>
+function getSearch() {
+  var entry = document.getElementById("term").value;
+  $.getJSON("https://en.wikipedia.org//w/api.php?action=opensearch&format=json&origin=*&search=" + entry + "&callback=?", function(data) {
+    console.log(data);
+    $( "#wiki1").unbind( "click" );
+    $("#wiki1").html(data[2][1]).click(function() {
+      window.open(data[3][1], '_blank');
+    });
+    $( "#wiki2").unbind( "click" );
+    $("#wiki2").html(data[2][2]).click(function() {
+      window.open(data[3][2], '_blank');
+    });
+    $( "#wiki3").unbind( "click" );
+    $("#wiki3").html(data[2][3]).click(function() {
+      window.open(data[3][3], '_blank');
+    });
+    $( "#wiki4").unbind( "click" );
+    $("#wiki4").html(data[2][4]).click(function() {
+      window.open(data[3][4], '_blank');
+    });
+    $( "#wiki5").unbind( "click" );
+    $("#wiki5").html(data[2][5]).click(function() {
+      window.open(data[3][5], '_blank');
+    });
+  });
+}
+
+$(document).ready(function(){
+   $("#term").on('keypress', function(event) {
+     if (event.which === 13) {
+       getSearch();
+       wiki1.classList.remove("hide");
+       wiki2.classList.remove("hide");
+       wiki3.classList.remove("hide");
+       wiki4.classList.remove("hide");
+       wiki5.classList.remove("hide");
+     }
+   });
+});
+</script>
+</body>
+
+</html>
